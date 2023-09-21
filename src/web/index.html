@@ -69,7 +69,7 @@
     <script>
 
         window.EpiiConsoleConfig = {
-             api:"api?app=console@receive&"   
+            api: "console?app=index@receive&"
         }
 
         window.EpiiConsole = (function () {
@@ -80,7 +80,7 @@
 
             let receiveHanlder = [];
             const out = {
-                lastId: "",
+                lastId: "-1",
                 ajax: {
 
                     async getText(uri) {
@@ -121,7 +121,7 @@
                     Object.assign(config, c);
                     return this;
                 },
-               
+
                 onReceive(handler) {
                     receiveHanlder.push(handler);
                     return this;
@@ -156,7 +156,7 @@
 
                     do {
                         try {
-                            await this.__notice(await this.api.get(window.EpiiConsoleConfig.api+"&lastId=" + this.lastId));
+                            await this.__notice(await this.api.get(window.EpiiConsoleConfig.api + "&lastId=" + this.lastId));
                         } catch (error) {
                             await this.callReceiveHandler({ msg: "链接Rpa服务失败，请查看Rpa程序是否正常运行，10秒后自动重试", color: "red", time: Date.now() })
                             await this.sleep(10000)
@@ -166,7 +166,7 @@
 
 
                 }
-               
+
             }
 
             return out;
@@ -181,12 +181,10 @@
         }
 
         async function start() {
-
-            let rpaConfig = await window.RpaConsole.getPageConfig();
-
-            setPageContent(rpaConfig)
-
-            window.EpiiConsole.mount("#box").start();
+            window.EpiiConsole.onReceive(function (message) {
+                
+                console[message.level](message.msg,message.tag);
+            }).start();
         }
 
         start();
