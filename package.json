@@ -1,0 +1,14 @@
+{
+  "name": "epii-console",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "dependencies": {
+    "epii-tiny-app": "^1.0.9"
+  },
+  "devDependencies": {},
+
+  "author": "",
+  "license": "ISC"
+}
