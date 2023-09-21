@@ -4,6 +4,10 @@
   "description": "",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "scripts": {
+    "build":"tsc",
+    "postbuild":"copyfiles -u 1 src/web/*.html dist"
+  },
   "dependencies": {
     "epii-tiny-app": "^1.0.9"
   },
