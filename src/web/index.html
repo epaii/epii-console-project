@@ -21,7 +21,7 @@
         height: calc((100vh - 110px) * 0.9);
         /* overflow-y: auto; */
         margin: 0 auto;
-        background: #161b22;
+        /* background: #161b22; */
     }
 
     .msg-title {
@@ -181,9 +181,16 @@
         }
 
         async function start() {
+            
             window.EpiiConsole.onReceive(function (message) {
-                
-                console[message.level](message.msg,message.tag);
+                try {
+                    let _time = new Date(message.time).toLocaleString()
+                    document.getElementById('box').innerHTML += `<div style='color:${message.level=='log'?'white':'red'};margin:8px 0'>${_time}: ${JSON.stringify(message.msg)} </div>`
+                    console[message.level](message.msg,message.tag,_time);
+                    
+                } catch (error) {
+                    console.log(error);
+                }
             }).start();
         }
 
