@@ -11,7 +11,7 @@ let numLimit = 20;
 exports.default = (0, epii_tiny_app_1.defineController)({
     index(ctx) {
         numLimit = ctx.params("limit", numLimit);
-        ctx.html(fs_1.default.readFileSync(__dirname + "/../web/index.html").toString());
+        ctx.html(html);
     },
     receive(ctx) {
         let lstId = ctx.params("lastId", 0);

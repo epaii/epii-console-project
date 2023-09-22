@@ -5,14 +5,15 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build":"tsc",
-    "postbuild":"copyfiles -u 1 src/web/*.html dist"
+    "build": "tsc",
+    "postbuild": "copyfiles -u 1 src/web/*.html dist"
   },
   "dependencies": {
-    "epii-tiny-app": "^1.0.9"
+    "epii-tiny-app": "^1.1.1"
   },
-  "devDependencies": {},
-
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.6.3"
+  }
 }

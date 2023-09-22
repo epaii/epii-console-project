@@ -2,6 +2,7 @@
 import App from "epii-tiny-app";
 
 import Log from "./logs";
+import indexApi from "./api/index"
 
 let isInit: boolean = false;
 
@@ -13,7 +14,7 @@ export function consoleInitWithApp(app: App, maxSize: number = 1000) {
         Log.maxSize = maxSize;
         console.log = Log.console.log;
         console.error = Log.console.error;
-        app.module("console", __dirname + "/api");
+        app.module("console", indexApi);
         isInit = true;
     }
 }

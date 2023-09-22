@@ -6,13 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.consoleInit = exports.consoleInitWithApp = void 0;
 const epii_tiny_app_1 = __importDefault(require("epii-tiny-app"));
 const logs_1 = __importDefault(require("./logs"));
+const index_1 = __importDefault(require("./api/index"));
 let isInit = false;
 function consoleInitWithApp(app, maxSize = 1000) {
     if (!isInit) {
         logs_1.default.maxSize = maxSize;
         console.log = logs_1.default.console.log;
         console.error = logs_1.default.console.error;
-        app.module("console", __dirname + "/api");
+        app.module("console", index_1.default);
         isInit = true;
     }
 }
