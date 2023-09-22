@@ -15,7 +15,7 @@ export default defineController({
       lastId: list.length > 0 ? list[0].id : lstId,
     };
   },
-  clear() {
+  clear(ctx) {
     Log.logs = [];
     Log.lastId = 0
     return 1;
