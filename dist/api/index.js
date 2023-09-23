@@ -4,14 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const epii_tiny_app_1 = require("epii-tiny-app");
-const fs_1 = __importDefault(require("fs"));
 const logs_1 = __importDefault(require("./../logs"));
-const html = fs_1.default.readFileSync(__dirname + "/../web/index.html").toString();
+const index_1 = __importDefault(require("../web/index"));
 let numLimit = 20;
 exports.default = (0, epii_tiny_app_1.defineController)({
     index(ctx) {
         numLimit = ctx.params("limit", numLimit);
-        ctx.html(html);
+        ctx.html(index_1.default);
     },
     receive(ctx) {
         let lstId = ctx.params("lastId", 0);

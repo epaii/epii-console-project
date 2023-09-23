@@ -1,7 +1,7 @@
 import { defineController } from "epii-tiny-app";
-import fs from "fs";
 import Log from "./../logs";
-const html = fs.readFileSync(__dirname + "/../web/index.html").toString();
+import html from "../web/index";
+
 let numLimit = 20;
 export default defineController({
   index(ctx) {

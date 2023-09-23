@@ -16,13 +16,6 @@
         background-color: #0d1117;
     }
 
-    #box {
-        width: 80vw;
-        height: calc((100vh - 110px) * 0.9);
-        /* overflow-y: auto; */
-        margin: 0 auto;
-        /* background: #161b22; */
-    }
 
     .msg-title {
         font-size: 25px;
@@ -30,72 +23,34 @@
         padding: 0px 0px 0px;
         color: #fff;
     }
-
-
-    .handle-btn {
-        position: fixed;
-        right: 30px;
-        top: 10px;
-    }
-
-    .handle-btn span:nth-of-type(1) {
-        cursor: pointer;
-        color: beige;
-
-    }
-
-    .handle-btn span:nth-of-type(1):hover {
-        cursor: pointer;
-        color: rgb(199, 199, 199);
-        /* text-decoration: underline; */
-    }
-
-    .handle-btn span:nth-of-type(2) {
-        color: brown;
-        margin-left: 10px;
-    }
-
-    .handle-btn span:nth-of-type(2):hover {
-        cursor: pointer;
-        color: rgb(199, 199, 199);
-        /* text-decoration: underline; */
-    }
     .scrollbar{
-        position: relative;
-        width: 80vw;
-        height: calc((100vh - 110px) * 0.9);
-        overflow-y: auto;
-        margin: 0 auto;
-    }
-    .scroll-fix{
-        position: absolute;
-        right: 30px;
-        z-index: 20;
+        display: flex;
+        justify-content: center;
     }
     .scroll-fix button{
         outline: none;
-        border: 1px solid #fff;    
-        border-radius: 3px;
-        background: transparent;
+        border: 1px solid #dddddd;
         color: #fff;
-        width: 60px;
-        height: 30px;
+        background: transparent;
+        width: 80px;
+        height: 35px;
+        border-radius: 3px;
+        margin-bottom: 10px;
         cursor: pointer;
     }
     .scroll-fix button:hover{
-        background-color:#3d3d3d;
+        background-color: #313131;
         cursor: pointer;
     }
 </style>
 
 <body>
-    <p class="msg-title" id="msgTitle">控制台</p>
+    <p class="msg-title" id="msgTitle">F12打开控制台查看日志</p>
     <div class="scrollbar">
         <div class="scroll-fix">
-            <button onclick="doStop(this)">暂停</button>
+            <button onclick="doStop(this)">暂停</button><br/>
             <button onclick="doClear(false)" ondblclick="doClear(true)">清空</button>
         </div>
-        <div id="box" class="scrollbar"></div>
     </div>
 
     <script>
@@ -103,7 +58,7 @@
         window.EpiiConsoleConfig = {
             api: "console?app=receive&",
             clearApi: "console?app=clear"
-        }
+        };
 
         window.EpiiConsole = (function () {
             let config = {
@@ -193,12 +148,12 @@
                             try {
                                 await this.__notice(await this.api.get(window.EpiiConsoleConfig.api + "&lastId=" + this.lastId));
                             } catch (error) {
-                                await this.callReceiveHandler({ msg: "链接Rpa服务失败，请查看Rpa程序是否正常运行，10秒后自动重试", color: "red", time: Date.now() })
-                                await this.sleep(10000)
+                                await this.callReceiveHandler({ msg: "链接Rpa服务失败，请查看Rpa程序是否正常运行，10秒后自动重试", color: "red", time: Date.now() });
+                                await this.sleep(10000);
                             }
                         }
 
-                        await this.sleep(config.interval)
+                        await this.sleep(config.interval);
                     } while (true);
 
 
@@ -212,25 +167,17 @@
                     this.enable = !this.enable;
                 }
 
-            }
+            };
 
             return out;
         })();
 
-        function setPageContent(params = {}) {
-            let pageInfo = Object.assign({
-                pageTitle: "控制台"
-            }, params)
-            document.title = pageInfo.pageTitle;
-            document.getElementById("msgTitle").innerText = pageInfo.pageTitle;
-        }
-
+    
         async function start() {
 
             window.EpiiConsole.onReceive(function (message) {
                 try {
-                    let _time = new Date(message.time).toLocaleString()
-                    document.getElementById('box').innerHTML = `<div style='color:${message.level == 'log' ? 'white' : 'red'};margin:8px 0'>${_time}: ${JSON.stringify(message.msg)} </div>` + document.getElementById('box').innerHTML
+                    let _time = new Date(message.time).toLocaleString();
                     console[message.level](message.msg, message.tag, _time);
 
                 } catch (error) {
@@ -241,23 +188,21 @@
 
         function doClear(serverClearr) {
             console.clear();
-           
-            document.getElementById('box').innerHTML = "";
-            if(serverClearr){
-                if(window.confirm("确定要清除服务日志吗"))
-                {
+
+            if (serverClearr) {
+                if (window.confirm("确定要清除服务日志吗")) {
                     window.EpiiConsole.clear();
                 }
             }
-            
+
         }
 
-        function doStop(button){
+        function doStop(button) {
             window.EpiiConsole.stop();
-            if(button.innerText==="暂停"){
-                button.innerText="继续";
-            }else{
-                button.innerText="暂停";
+            if (button.innerText === "暂停") {
+                button.innerText = "继续";
+            } else {
+                button.innerText = "暂停";
             }
         }
         start();

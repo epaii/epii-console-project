@@ -2,7 +2,7 @@
 
 import {consoleInit} from "../src/index";
 
-consoleInit(7799);
+consoleInit(7769);
 let index = 0;
 setInterval(()=>{
     console.log({
