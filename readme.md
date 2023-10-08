@@ -25,7 +25,7 @@ console.log({code:1,msg:'success'},'res')
 
 ```
 
-访问 *http://127.0.0.1:7769/console* ，F12 打开控制台查看输出内容
+访问 http://127.0.0.1:7769/console ，F12 打开控制台查看输出内容
 
 ### 暂停与清空功能
 
