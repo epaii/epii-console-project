@@ -1,6 +1,6 @@
 {
   "name": "epii-console",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -14,5 +14,6 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.6.3"
-  }
+  },
+  "boot.starter":"dist/logs.js"
 }
